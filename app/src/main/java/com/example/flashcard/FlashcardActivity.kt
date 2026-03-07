@@ -31,6 +31,7 @@ class FlashcardActivity : AppCompatActivity() {
         val divider = findViewById<View>(R.id.divider)
         val showAnswerButton = findViewById<Button>(R.id.showAnswerButton)
         val counterText = findViewById<TextView>(R.id.counterText)
+        val homeButton = findViewById<Button>(R.id.homeButton)
 
         fun showCard() {
             val card = cards[currentIndex]
@@ -57,12 +58,21 @@ class FlashcardActivity : AppCompatActivity() {
             showCard()
         }
 
+        fun prevCard() {
+            currentIndex = (currentIndex - 1 + cards.size) % cards.size
+            showCard()
+        }
+
         showCard()
 
         showAnswerButton.setOnClickListener {
             enText.visibility = View.VISIBLE
             divider.visibility = View.VISIBLE
             showAnswerButton.visibility = View.GONE
+        }
+
+        homeButton.setOnClickListener {
+            finish()
         }
 
         gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
@@ -76,7 +86,7 @@ class FlashcardActivity : AppCompatActivity() {
                 val diffX = e2.x - e1.x
                 val diffY = e2.y - e1.y
                 if (abs(diffX) > abs(diffY) && abs(diffX) > 80 && abs(velocityX) > 100) {
-                    nextCard()
+                    if (diffX < 0) nextCard() else prevCard()
                     return true
                 }
                 return false

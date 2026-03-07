@@ -8,13 +8,38 @@
     android:padding="32dp"
     android:background="@color/background">
 
-    <TextView
-        android:id="@+id/counterText"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:textSize="14sp"
-        android:textColor="@color/textHint" />
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="24dp">
+
+        <Button
+            android:id="@+id/homeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="← 홈"
+            android:textSize="14sp"
+            android:textAllCaps="false"
+            android:textColor="@color/textHint"
+            style="?android:attr/borderlessButtonStyle"
+            android:paddingStart="0dp" />
+
+        <TextView
+            android:id="@+id/counterText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:textColor="@color/textHint" />
+
+        <Space
+            android:layout_width="64dp"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
