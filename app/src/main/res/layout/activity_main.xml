@@ -28,10 +28,21 @@
         android:id="@+id/startButton"
         android:layout_width="200dp"
         android:layout_height="56dp"
-        android:text="학습 시작"
+        android:text="전체 학습"
         android:textSize="18sp"
         android:textAllCaps="false"
         android:backgroundTint="@color/buttonGreen"
         android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/bookmarkedButton"
+        android:layout_width="200dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="12dp"
+        android:textSize="16sp"
+        android:textAllCaps="false"
+        android:backgroundTint="#1976D2"
+        android:textColor="#FFFFFF"
+        android:visibility="gone" />
 
 </LinearLayout>
