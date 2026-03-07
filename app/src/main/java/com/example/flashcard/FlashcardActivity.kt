@@ -25,6 +25,7 @@ class FlashcardActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_MODE = "mode"
         const val MODE_BOOKMARKED = "bookmarked"
+        const val MODE_USER = "user"
         private const val PREFS = "flashcard_prefs"
         private const val KEY_BOOKMARKED = "bookmarked"
     }
@@ -36,18 +37,13 @@ class FlashcardActivity : AppCompatActivity() {
         val prefs = getSharedPreferences(PREFS, MODE_PRIVATE)
         bookmarked = (prefs.getStringSet(KEY_BOOKMARKED, emptySet()) ?: emptySet()).toMutableSet()
 
-        loadCards()
+        val mode = intent.getStringExtra(EXTRA_MODE)
+        loadCards(mode)
 
-        val isBookmarkedMode = intent.getStringExtra(EXTRA_MODE) == MODE_BOOKMARKED
-        if (isBookmarkedMode) {
-            val filtered = cards.filter { bookmarked.contains(it.ko) }
-            if (filtered.isEmpty()) {
-                Toast.makeText(this, "저장한 카드가 없습니다.", Toast.LENGTH_SHORT).show()
-                finish()
-                return
-            }
-            cards.clear()
-            cards.addAll(filtered)
+        if (cards.isEmpty()) {
+            Toast.makeText(this, "카드가 없습니다.", Toast.LENGTH_SHORT).show()
+            finish()
+            return
         }
 
         cards.shuffle()
@@ -142,12 +138,28 @@ class FlashcardActivity : AppCompatActivity() {
         return super.dispatchTouchEvent(ev)
     }
 
-    private fun loadCards() {
+    private fun loadCards(mode: String?) {
+        val baseCards = loadBaseCards()
+        val userCards = UserCardManager.load(this)
+
+        val pool = when (mode) {
+            MODE_USER -> userCards
+            else -> (baseCards + userCards).toMutableList()
+        }
+
+        if (mode == MODE_BOOKMARKED) {
+            cards.addAll(pool.filter { bookmarked.contains(it.ko) })
+        } else {
+            cards.addAll(pool)
+        }
+    }
+
+    private fun loadBaseCards(): List<Flashcard> {
         val raw = resources.openRawResource(R.raw.flashcards).bufferedReader().readText()
         val array = JSONArray(raw)
-        for (i in 0 until array.length()) {
+        return (0 until array.length()).map { i ->
             val obj = array.getJSONObject(i)
-            cards.add(Flashcard(ko = obj.getString("ko"), en = obj.getString("en")))
+            Flashcard(ko = obj.getString("ko"), en = obj.getString("en"))
         }
     }
 }

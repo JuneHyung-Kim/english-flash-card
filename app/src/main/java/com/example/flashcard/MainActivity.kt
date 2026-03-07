@@ -14,39 +14,42 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val cardCount = loadCardCount()
-        findViewById<TextView>(R.id.cardCountText).text = "총 ${cardCount}장의 카드"
-
         findViewById<Button>(R.id.startButton).setOnClickListener {
             startActivity(Intent(this, FlashcardActivity::class.java))
         }
-
         findViewById<Button>(R.id.bookmarkedButton).setOnClickListener {
             startActivity(Intent(this, FlashcardActivity::class.java).apply {
                 putExtra(FlashcardActivity.EXTRA_MODE, FlashcardActivity.MODE_BOOKMARKED)
             })
         }
+        findViewById<Button>(R.id.userCardsButton).setOnClickListener {
+            startActivity(Intent(this, FlashcardActivity::class.java).apply {
+                putExtra(FlashcardActivity.EXTRA_MODE, FlashcardActivity.MODE_USER)
+            })
+        }
+        findViewById<Button>(R.id.addCardButton).setOnClickListener {
+            startActivity(Intent(this, AddCardActivity::class.java))
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        val count = getBookmarkedCount()
-        val btn = findViewById<Button>(R.id.bookmarkedButton)
-        if (count > 0) {
-            btn.visibility = View.VISIBLE
-            btn.text = "저장한 카드 학습 (${count}장)"
-        } else {
-            btn.visibility = View.GONE
+
+        val userCards = UserCardManager.load(this)
+        val baseCount = JSONArray(resources.openRawResource(R.raw.flashcards).bufferedReader().readText()).length()
+        val totalCount = baseCount + userCards.size
+        findViewById<TextView>(R.id.cardCountText).text = "총 ${totalCount}장의 카드"
+
+        val bookmarkCount = (getSharedPreferences("flashcard_prefs", MODE_PRIVATE)
+            .getStringSet("bookmarked", emptySet()) ?: emptySet()).size
+        findViewById<Button>(R.id.bookmarkedButton).apply {
+            visibility = if (bookmarkCount > 0) View.VISIBLE else View.GONE
+            text = "저장한 카드 학습 (${bookmarkCount}장)"
         }
-    }
 
-    private fun loadCardCount(): Int {
-        val raw = resources.openRawResource(R.raw.flashcards).bufferedReader().readText()
-        return JSONArray(raw).length()
-    }
-
-    private fun getBookmarkedCount(): Int {
-        val prefs = getSharedPreferences("flashcard_prefs", MODE_PRIVATE)
-        return (prefs.getStringSet("bookmarked", emptySet()) ?: emptySet()).size
+        findViewById<Button>(R.id.userCardsButton).apply {
+            visibility = if (userCards.isNotEmpty()) View.VISIBLE else View.GONE
+            text = "내가 추가한 카드 (${userCards.size}장)"
+        }
     }
 }
