@@ -1,6 +1,5 @@
 package com.example.flashcard
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.GestureDetector
 import android.view.MotionEvent
@@ -60,7 +59,7 @@ class FlashcardActivity : AppCompatActivity() {
             val isBookmarked = bookmarked.contains(cards[currentIndex].ko)
             bookmarkButton.text = if (isBookmarked) "★" else "☆"
             bookmarkButton.setTextColor(
-                if (isBookmarked) Color.parseColor("#FFC107")
+                if (isBookmarked) ContextCompat.getColor(this, R.color.bookmarkActive)
                 else ContextCompat.getColor(this, R.color.textHint)
             )
         }

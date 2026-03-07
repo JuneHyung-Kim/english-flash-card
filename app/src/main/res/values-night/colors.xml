@@ -2,9 +2,11 @@
 <resources>
     <color name="background">#121212</color>
     <color name="cardBackground">#1E1E1E</color>
-    <color name="textPrimary">#EEEEEE</color>
-    <color name="textSecondary">#B0BEC5</color>
-    <color name="textHint">#757575</color>
-    <color name="divider">#424242</color>
-    <color name="buttonGreen">#388E3C</color>
+    <color name="textPrimary">#E8EAED</color>
+    <color name="textSecondary">#9AA0A6</color>
+    <color name="textHint">#5F6368</color>
+    <color name="divider">#3C4043</color>
+    <color name="buttonPrimary">#7986CB</color>
+    <color name="buttonSecondary">#FF8A65</color>
+    <color name="bookmarkActive">#FFC107</color>
 </resources>
