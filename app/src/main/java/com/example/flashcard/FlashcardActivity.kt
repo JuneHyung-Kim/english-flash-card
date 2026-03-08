@@ -12,7 +12,7 @@ import androidx.core.content.ContextCompat
 import org.json.JSONArray
 import kotlin.math.abs
 
-data class Flashcard(val ko: String, val en: String)
+data class Flashcard(val ko: String, val en: String, val tag: String? = null)
 
 class FlashcardActivity : AppCompatActivity() {
 
@@ -78,6 +78,7 @@ class FlashcardActivity : AppCompatActivity() {
         val enText = findViewById<TextView>(R.id.enText)
         val divider = findViewById<View>(R.id.divider)
         val hintText = findViewById<TextView>(R.id.hintText)
+        val tagText = findViewById<TextView>(R.id.tagText)
         val cardView = findViewById<com.google.android.material.card.MaterialCardView>(R.id.cardView)
         val counterText = findViewById<TextView>(R.id.counterText)
         val homeButton = findViewById<Button>(R.id.homeButton)
@@ -114,6 +115,12 @@ class FlashcardActivity : AppCompatActivity() {
             divider.visibility = View.INVISIBLE
             hintText.visibility = View.VISIBLE
             counterText.text = "${currentIndex + 1} / ${cards.size}"
+            if (card.tag != null) {
+                tagText.text = card.tag
+                tagText.visibility = View.VISIBLE
+            } else {
+                tagText.visibility = View.GONE
+            }
             updateBookmarkButton()
             updateExcludeButton()
         }
@@ -222,7 +229,11 @@ class FlashcardActivity : AppCompatActivity() {
         val array = JSONArray(raw)
         return (0 until array.length()).map { i ->
             val obj = array.getJSONObject(i)
-            Flashcard(ko = obj.getString("ko"), en = obj.getString("en"))
+            Flashcard(
+                ko = obj.getString("ko"),
+                en = obj.getString("en"),
+                tag = if (obj.has("tag")) obj.getString("tag") else null
+            )
         }
     }
 }

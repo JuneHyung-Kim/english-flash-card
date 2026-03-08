@@ -8,6 +8,8 @@
     <color name="divider">#E8EAED</color>
     <color name="buttonPrimary">#5C6BC0</color>
     <color name="buttonSecondary">#FF8A65</color>
+    <color name="tagBackground">#EEF0FB</color>
+    <color name="tagText">#5C6BC0</color>
     <color name="bookmarkActive">#FFC107</color>
     <color name="excludeActive">#EF5350</color>
 </resources>
