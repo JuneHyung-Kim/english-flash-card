@@ -27,7 +27,11 @@ class FlashcardActivity : AppCompatActivity() {
         const val MODE_USER = "user"
         private const val PREFS = "flashcard_prefs"
         private const val KEY_BOOKMARKED = "bookmarked"
+        private fun progressIndexKey(mode: String?) = "progress_index_${mode ?: "default"}"
+        private fun progressOrderKey(mode: String?) = "progress_order_${mode ?: "default"}"
     }
+
+    private var mode: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +40,7 @@ class FlashcardActivity : AppCompatActivity() {
         val prefs = getSharedPreferences(PREFS, MODE_PRIVATE)
         bookmarked = (prefs.getStringSet(KEY_BOOKMARKED, emptySet()) ?: emptySet()).toMutableSet()
 
-        val mode = intent.getStringExtra(EXTRA_MODE)
+        mode = intent.getStringExtra(EXTRA_MODE)
         loadCards(mode)
 
         if (cards.isEmpty()) {
@@ -45,7 +49,27 @@ class FlashcardActivity : AppCompatActivity() {
             return
         }
 
-        cards.shuffle()
+        // 저장된 진행 상태 복원 시도
+        val savedOrderJson = prefs.getString(progressOrderKey(mode), null)
+        val savedIndex = prefs.getInt(progressIndexKey(mode), -1)
+        if (savedOrderJson != null && savedIndex >= 0) {
+            try {
+                val savedOrder = JSONArray(savedOrderJson)
+                val koToCard = cards.associateBy { it.ko }
+                val restoredCards = (0 until savedOrder.length()).mapNotNull { koToCard[savedOrder.getString(it)] }
+                if (restoredCards.size == cards.size) {
+                    cards.clear()
+                    cards.addAll(restoredCards)
+                    currentIndex = savedIndex.coerceIn(0, cards.size - 1)
+                } else {
+                    cards.shuffle()
+                }
+            } catch (e: Exception) {
+                cards.shuffle()
+            }
+        } else {
+            cards.shuffle()
+        }
 
         val koText = findViewById<TextView>(R.id.koText)
         val enText = findViewById<TextView>(R.id.enText)
@@ -88,11 +112,13 @@ class FlashcardActivity : AppCompatActivity() {
                 Toast.makeText(this, "전체 완료! 카드를 다시 섞었습니다.", Toast.LENGTH_SHORT).show()
             }
             showCard()
+            saveProgress()
         }
 
         fun prevCard() {
             currentIndex = (currentIndex - 1 + cards.size) % cards.size
             showCard()
+            saveProgress()
         }
 
         showCard()
@@ -130,6 +156,20 @@ class FlashcardActivity : AppCompatActivity() {
                 return false
             }
         })
+    }
+
+    override fun onPause() {
+        super.onPause()
+        saveProgress()
+    }
+
+    private fun saveProgress() {
+        val orderArray = JSONArray()
+        cards.forEach { orderArray.put(it.ko) }
+        getSharedPreferences(PREFS, MODE_PRIVATE).edit()
+            .putString(progressOrderKey(mode), orderArray.toString())
+            .putInt(progressIndexKey(mode), currentIndex)
+            .apply()
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
