@@ -1,0 +1,15 @@
+# Gradle
+.gradle/
+build/
+app/build/
+
+# Local environment
+local.properties
+
+# IDE
+.idea/
+
+# Editor temp files
+*.swp
+*.bak
+*~
