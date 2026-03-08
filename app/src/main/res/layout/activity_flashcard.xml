@@ -55,13 +55,17 @@
     </LinearLayout>
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
         app:cardBackgroundColor="@color/cardBackground"
         app:cardCornerRadius="24dp"
         app:cardElevation="8dp"
         app:strokeWidth="1dp"
-        app:strokeColor="@color/divider">
+        app:strokeColor="@color/divider"
+        app:rippleColor="@color/divider">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -104,24 +108,12 @@
 
     </com.google.android.material.card.MaterialCardView>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/showAnswerButton"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="40dp"
-        android:text="정답 보기"
-        android:textSize="17sp"
-        android:textStyle="bold"
-        android:textAllCaps="false"
-        android:textColor="#FFFFFF"
-        app:cornerRadius="30dp"
-        app:backgroundTint="@color/buttonPrimary" />
-
     <TextView
+        android:id="@+id/hintText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="← 스와이프로 다음 카드 →"
+        android:layout_marginTop="28dp"
+        android:text="탭하여 정답 보기  •  스와이프로 이동"
         android:textSize="13sp"
         android:textColor="@color/textHint" />
 

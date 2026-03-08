@@ -77,7 +77,8 @@ class FlashcardActivity : AppCompatActivity() {
         val koText = findViewById<TextView>(R.id.koText)
         val enText = findViewById<TextView>(R.id.enText)
         val divider = findViewById<View>(R.id.divider)
-        val showAnswerButton = findViewById<Button>(R.id.showAnswerButton)
+        val hintText = findViewById<TextView>(R.id.hintText)
+        val cardView = findViewById<com.google.android.material.card.MaterialCardView>(R.id.cardView)
         val counterText = findViewById<TextView>(R.id.counterText)
         val homeButton = findViewById<Button>(R.id.homeButton)
         val bookmarkButton = findViewById<Button>(R.id.bookmarkButton)
@@ -111,7 +112,7 @@ class FlashcardActivity : AppCompatActivity() {
             }
             enText.visibility = View.INVISIBLE
             divider.visibility = View.INVISIBLE
-            showAnswerButton.visibility = View.VISIBLE
+            hintText.visibility = View.VISIBLE
             counterText.text = "${currentIndex + 1} / ${cards.size}"
             updateBookmarkButton()
             updateExcludeButton()
@@ -136,10 +137,12 @@ class FlashcardActivity : AppCompatActivity() {
 
         showCard()
 
-        showAnswerButton.setOnClickListener {
-            enText.visibility = View.VISIBLE
-            divider.visibility = View.VISIBLE
-            showAnswerButton.visibility = View.GONE
+        cardView.setOnClickListener {
+            if (enText.visibility == View.INVISIBLE) {
+                enText.visibility = View.VISIBLE
+                divider.visibility = View.VISIBLE
+                hintText.visibility = View.INVISIBLE
+            }
         }
 
         homeButton.setOnClickListener { finish() }
