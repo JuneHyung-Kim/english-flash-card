@@ -20,6 +20,7 @@ class FlashcardActivity : AppCompatActivity() {
     private var currentIndex = 0
     private lateinit var gestureDetector: GestureDetector
     private lateinit var bookmarked: MutableSet<String>
+    private lateinit var excluded: MutableSet<String>
 
     companion object {
         const val EXTRA_MODE = "mode"
@@ -27,6 +28,7 @@ class FlashcardActivity : AppCompatActivity() {
         const val MODE_USER = "user"
         private const val PREFS = "flashcard_prefs"
         private const val KEY_BOOKMARKED = "bookmarked"
+        const val KEY_EXCLUDED = "excluded"
         private fun progressIndexKey(mode: String?) = "progress_index_${mode ?: "default"}"
         private fun progressOrderKey(mode: String?) = "progress_order_${mode ?: "default"}"
     }
@@ -39,6 +41,7 @@ class FlashcardActivity : AppCompatActivity() {
 
         val prefs = getSharedPreferences(PREFS, MODE_PRIVATE)
         bookmarked = (prefs.getStringSet(KEY_BOOKMARKED, emptySet()) ?: emptySet()).toMutableSet()
+        excluded = (prefs.getStringSet(KEY_EXCLUDED, emptySet()) ?: emptySet()).toMutableSet()
 
         mode = intent.getStringExtra(EXTRA_MODE)
         loadCards(mode)
@@ -78,12 +81,21 @@ class FlashcardActivity : AppCompatActivity() {
         val counterText = findViewById<TextView>(R.id.counterText)
         val homeButton = findViewById<Button>(R.id.homeButton)
         val bookmarkButton = findViewById<Button>(R.id.bookmarkButton)
+        val excludeButton = findViewById<Button>(R.id.excludeButton)
 
         fun updateBookmarkButton() {
             val isBookmarked = bookmarked.contains(cards[currentIndex].ko)
             bookmarkButton.text = if (isBookmarked) "★" else "☆"
             bookmarkButton.setTextColor(
                 if (isBookmarked) ContextCompat.getColor(this, R.color.bookmarkActive)
+                else ContextCompat.getColor(this, R.color.textHint)
+            )
+        }
+
+        fun updateExcludeButton() {
+            val isExcluded = excluded.contains(cards[currentIndex].ko)
+            excludeButton.setTextColor(
+                if (isExcluded) ContextCompat.getColor(this, R.color.excludeActive)
                 else ContextCompat.getColor(this, R.color.textHint)
             )
         }
@@ -102,6 +114,7 @@ class FlashcardActivity : AppCompatActivity() {
             showAnswerButton.visibility = View.VISIBLE
             counterText.text = "${currentIndex + 1} / ${cards.size}"
             updateBookmarkButton()
+            updateExcludeButton()
         }
 
         fun nextCard() {
@@ -137,6 +150,14 @@ class FlashcardActivity : AppCompatActivity() {
             else bookmarked.add(cardKey)
             prefs.edit().putStringSet(KEY_BOOKMARKED, bookmarked.toSet()).apply()
             updateBookmarkButton()
+        }
+
+        excludeButton.setOnClickListener {
+            val cardKey = cards[currentIndex].ko
+            if (excluded.contains(cardKey)) excluded.remove(cardKey)
+            else excluded.add(cardKey)
+            prefs.edit().putStringSet(KEY_EXCLUDED, excluded.toSet()).apply()
+            updateExcludeButton()
         }
 
         gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
@@ -187,9 +208,9 @@ class FlashcardActivity : AppCompatActivity() {
         }
 
         if (mode == MODE_BOOKMARKED) {
-            cards.addAll(pool.filter { bookmarked.contains(it.ko) })
+            cards.addAll(pool.filter { bookmarked.contains(it.ko) && !excluded.contains(it.ko) })
         } else {
-            cards.addAll(pool)
+            cards.addAll(pool.filter { !excluded.contains(it.ko) })
         }
     }
 

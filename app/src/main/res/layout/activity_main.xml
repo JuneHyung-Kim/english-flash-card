@@ -72,4 +72,15 @@
         android:textAllCaps="false"
         android:textColor="@color/textHint" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/excludedManageButton"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textSize="13sp"
+        android:textAllCaps="false"
+        android:textColor="@color/excludeActive"
+        android:visibility="gone" />
+
 </LinearLayout>

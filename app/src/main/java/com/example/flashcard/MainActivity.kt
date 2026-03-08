@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import org.json.JSONArray
 
@@ -40,8 +41,9 @@ class MainActivity : AppCompatActivity() {
         val totalCount = baseCount + userCards.size
         findViewById<TextView>(R.id.cardCountText).text = "총 ${totalCount}장의 카드"
 
-        val bookmarkCount = (getSharedPreferences("flashcard_prefs", MODE_PRIVATE)
-            .getStringSet("bookmarked", emptySet()) ?: emptySet()).size
+        val prefs = getSharedPreferences("flashcard_prefs", MODE_PRIVATE)
+
+        val bookmarkCount = (prefs.getStringSet("bookmarked", emptySet()) ?: emptySet()).size
         findViewById<Button>(R.id.bookmarkedButton).apply {
             visibility = if (bookmarkCount > 0) View.VISIBLE else View.GONE
             text = "저장한 카드 학습 (${bookmarkCount}장)"
@@ -50,6 +52,23 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.userCardsButton).apply {
             visibility = if (userCards.isNotEmpty()) View.VISIBLE else View.GONE
             text = "내가 추가한 카드 (${userCards.size}장)"
+        }
+
+        val excludedCount = (prefs.getStringSet(FlashcardActivity.KEY_EXCLUDED, emptySet()) ?: emptySet()).size
+        findViewById<Button>(R.id.excludedManageButton).apply {
+            visibility = if (excludedCount > 0) View.VISIBLE else View.GONE
+            text = "제외된 카드 ${excludedCount}장 복원"
+            setOnClickListener {
+                AlertDialog.Builder(this@MainActivity)
+                    .setTitle("제외된 카드 복원")
+                    .setMessage("제외된 카드 ${excludedCount}장을 모두 복원하시겠습니까?")
+                    .setPositiveButton("복원") { _, _ ->
+                        prefs.edit().remove(FlashcardActivity.KEY_EXCLUDED).apply()
+                        onResume()
+                    }
+                    .setNegativeButton("취소", null)
+                    .show()
+            }
         }
     }
 }

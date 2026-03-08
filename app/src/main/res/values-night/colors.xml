@@ -9,4 +9,5 @@
     <color name="buttonPrimary">#7986CB</color>
     <color name="buttonSecondary">#FF8A65</color>
     <color name="bookmarkActive">#FFC107</color>
+    <color name="excludeActive">#EF5350</color>
 </resources>

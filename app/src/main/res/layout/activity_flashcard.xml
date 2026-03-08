@@ -44,6 +44,14 @@
             android:text="☆"
             android:textSize="20sp" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/excludeButton"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="48dp"
+            android:layout_height="40dp"
+            android:text="✕"
+            android:textSize="18sp" />
+
     </LinearLayout>
 
     <com.google.android.material.card.MaterialCardView
