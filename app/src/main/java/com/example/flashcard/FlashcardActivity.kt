@@ -24,16 +24,27 @@ class FlashcardActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_MODE = "mode"
+        const val EXTRA_SECTION = "section_number"
         const val MODE_BOOKMARKED = "bookmarked"
         const val MODE_USER = "user"
+        const val MODE_SECTION = "section"
         private const val PREFS = "flashcard_prefs"
         private const val KEY_BOOKMARKED = "bookmarked"
         const val KEY_EXCLUDED = "excluded"
-        private fun progressIndexKey(mode: String?) = "progress_index_${mode ?: "default"}"
-        private fun progressOrderKey(mode: String?) = "progress_order_${mode ?: "default"}"
+        const val SECTION_SIZE = 97
     }
 
     private var mode: String? = null
+    private var sectionNumber: Int = 0
+
+    private fun progressIndexKey() = when {
+        mode == MODE_SECTION -> "progress_index_section_$sectionNumber"
+        else -> "progress_index_${mode ?: "default"}"
+    }
+    private fun progressOrderKey() = when {
+        mode == MODE_SECTION -> "progress_order_section_$sectionNumber"
+        else -> "progress_order_${mode ?: "default"}"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +55,7 @@ class FlashcardActivity : AppCompatActivity() {
         excluded = (prefs.getStringSet(KEY_EXCLUDED, emptySet()) ?: emptySet()).toMutableSet()
 
         mode = intent.getStringExtra(EXTRA_MODE)
+        sectionNumber = intent.getIntExtra(EXTRA_SECTION, 0)
         loadCards(mode)
 
         if (cards.isEmpty()) {
@@ -53,8 +65,8 @@ class FlashcardActivity : AppCompatActivity() {
         }
 
         // 저장된 진행 상태 복원 시도
-        val savedOrderJson = prefs.getString(progressOrderKey(mode), null)
-        val savedIndex = prefs.getInt(progressIndexKey(mode), -1)
+        val savedOrderJson = prefs.getString(progressOrderKey(), null)
+        val savedIndex = prefs.getInt(progressIndexKey(), -1)
         if (savedOrderJson != null && savedIndex >= 0) {
             try {
                 val savedOrder = JSONArray(savedOrderJson)
@@ -198,8 +210,8 @@ class FlashcardActivity : AppCompatActivity() {
         val orderArray = JSONArray()
         cards.forEach { orderArray.put(it.ko) }
         getSharedPreferences(PREFS, MODE_PRIVATE).edit()
-            .putString(progressOrderKey(mode), orderArray.toString())
-            .putInt(progressIndexKey(mode), currentIndex)
+            .putString(progressOrderKey(), orderArray.toString())
+            .putInt(progressIndexKey(), currentIndex)
             .apply()
     }
 
@@ -212,15 +224,25 @@ class FlashcardActivity : AppCompatActivity() {
         val baseCards = loadBaseCards()
         val userCards = UserCardManager.load(this)
 
-        val pool = when (mode) {
-            MODE_USER -> userCards
-            else -> (baseCards + userCards).toMutableList()
-        }
-
-        if (mode == MODE_BOOKMARKED) {
-            cards.addAll(pool.filter { bookmarked.contains(it.ko) && !excluded.contains(it.ko) })
-        } else {
-            cards.addAll(pool.filter { !excluded.contains(it.ko) })
+        when (mode) {
+            MODE_SECTION -> {
+                val sorted = baseCards.sortedBy { it.tag ?: "" }
+                val totalSections = maxOf(1, Math.ceil(sorted.size / SECTION_SIZE.toDouble()).toInt())
+                val lastSection = totalSections - 1
+                val sectionBase = sorted.filterIndexed { i, _ -> i % totalSections == sectionNumber }
+                val pool = if (sectionNumber == lastSection) sectionBase + userCards else sectionBase
+                cards.addAll(pool.filter { !excluded.contains(it.ko) })
+            }
+            MODE_USER -> {
+                cards.addAll(userCards.filter { !excluded.contains(it.ko) })
+            }
+            MODE_BOOKMARKED -> {
+                val pool = baseCards + userCards
+                cards.addAll(pool.filter { bookmarked.contains(it.ko) && !excluded.contains(it.ko) })
+            }
+            else -> {
+                cards.addAll((baseCards + userCards).filter { !excluded.contains(it.ko) })
+            }
         }
     }
 

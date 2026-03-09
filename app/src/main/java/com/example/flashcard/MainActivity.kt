@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import org.json.JSONArray
+import kotlin.math.ceil
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         findViewById<Button>(R.id.startButton).setOnClickListener {
-            startActivity(Intent(this, FlashcardActivity::class.java))
+            showSectionPicker()
         }
         findViewById<Button>(R.id.bookmarkedButton).setOnClickListener {
             startActivity(Intent(this, FlashcardActivity::class.java).apply {
@@ -31,6 +32,28 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.addCardButton).setOnClickListener {
             startActivity(Intent(this, AddCardActivity::class.java))
         }
+    }
+
+    private fun showSectionPicker() {
+        val baseCount = JSONArray(resources.openRawResource(R.raw.flashcards).bufferedReader().readText()).length()
+        val userCards = UserCardManager.load(this)
+        val totalSections = maxOf(1, ceil(baseCount / FlashcardActivity.SECTION_SIZE.toDouble()).toInt())
+        val floor = baseCount / totalSections
+        val remainder = baseCount % totalSections
+        val labels = Array(totalSections) { s ->
+            val baseInSection = if (s < remainder) floor + 1 else floor
+            val userInSection = if (s == totalSections - 1) userCards.size else 0
+            "섹션 ${s + 1}  (${baseInSection + userInSection}장)"
+        }
+        AlertDialog.Builder(this)
+            .setTitle("섹션 선택")
+            .setItems(labels) { _, s ->
+                startActivity(Intent(this, FlashcardActivity::class.java).apply {
+                    putExtra(FlashcardActivity.EXTRA_MODE, FlashcardActivity.MODE_SECTION)
+                    putExtra(FlashcardActivity.EXTRA_SECTION, s)
+                })
+            }
+            .show()
     }
 
     override fun onResume() {

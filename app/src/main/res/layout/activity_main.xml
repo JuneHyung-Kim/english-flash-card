@@ -29,7 +29,7 @@
         android:id="@+id/startButton"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:text="전체 학습"
+        android:text="섹션별 학습"
         android:textSize="17sp"
         android:textStyle="bold"
         android:textAllCaps="false"
