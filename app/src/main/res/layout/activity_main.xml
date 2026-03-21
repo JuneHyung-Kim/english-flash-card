@@ -62,11 +62,22 @@
         android:visibility="gone" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/addCardButton"
+        android:id="@+id/searchButton"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:text="🔍 표현 검색"
+        android:textSize="15sp"
+        android:textAllCaps="false"
+        android:textColor="@color/buttonPrimary" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/addCardButton"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:text="+ 카드 추가"
         android:textSize="15sp"
         android:textAllCaps="false"

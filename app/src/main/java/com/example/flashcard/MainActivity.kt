@@ -29,6 +29,9 @@ class MainActivity : AppCompatActivity() {
                 putExtra(FlashcardActivity.EXTRA_MODE, FlashcardActivity.MODE_USER)
             })
         }
+        findViewById<Button>(R.id.searchButton).setOnClickListener {
+            startActivity(Intent(this, SearchActivity::class.java))
+        }
         findViewById<Button>(R.id.addCardButton).setOnClickListener {
             startActivity(Intent(this, AddCardActivity::class.java))
         }
