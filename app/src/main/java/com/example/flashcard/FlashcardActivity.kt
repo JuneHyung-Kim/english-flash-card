@@ -14,7 +14,7 @@ import org.json.JSONArray
 import java.util.Locale
 import kotlin.math.abs
 
-data class Flashcard(val ko: String, val en: String, val tag: String? = null)
+data class Flashcard(val ko: String, val en: String, val tag: String? = null, val note: String? = null)
 
 class FlashcardActivity : AppCompatActivity() {
 
@@ -93,6 +93,7 @@ class FlashcardActivity : AppCompatActivity() {
         val enText = findViewById<TextView>(R.id.enText)
         val divider = findViewById<View>(R.id.divider)
         val hintText = findViewById<TextView>(R.id.hintText)
+        val noteText = findViewById<TextView>(R.id.noteText)
         val tagText = findViewById<TextView>(R.id.tagText)
         val cardView = findViewById<com.google.android.material.card.MaterialCardView>(R.id.cardView)
         val counterText = findViewById<TextView>(R.id.counterText)
@@ -136,6 +137,7 @@ class FlashcardActivity : AppCompatActivity() {
             enText.visibility = View.INVISIBLE
             divider.visibility = View.INVISIBLE
             hintText.visibility = View.VISIBLE
+            noteText.visibility = View.GONE
             counterText.text = "${currentIndex + 1} / ${cards.size}"
             if (card.tag != null) {
                 tagText.text = card.tag
@@ -171,6 +173,11 @@ class FlashcardActivity : AppCompatActivity() {
                 enText.visibility = View.VISIBLE
                 divider.visibility = View.VISIBLE
                 hintText.visibility = View.INVISIBLE
+                val note = cards[currentIndex].note
+                if (note != null) {
+                    noteText.text = note
+                    noteText.visibility = View.VISIBLE
+                }
             }
         }
 
@@ -274,7 +281,8 @@ class FlashcardActivity : AppCompatActivity() {
             Flashcard(
                 ko = obj.getString("ko"),
                 en = obj.getString("en"),
-                tag = if (obj.has("tag")) obj.getString("tag") else null
+                tag = if (obj.has("tag")) obj.getString("tag") else null,
+                note = if (obj.has("note")) obj.getString("note") else null
             )
         }
     }
