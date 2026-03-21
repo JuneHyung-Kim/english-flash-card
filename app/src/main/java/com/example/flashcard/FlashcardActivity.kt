@@ -1,6 +1,7 @@
 package com.example.flashcard
 
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
@@ -10,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import org.json.JSONArray
+import java.util.Locale
 import kotlin.math.abs
 
 data class Flashcard(val ko: String, val en: String, val tag: String? = null)
@@ -21,6 +23,7 @@ class FlashcardActivity : AppCompatActivity() {
     private lateinit var gestureDetector: GestureDetector
     private lateinit var bookmarked: MutableSet<String>
     private lateinit var excluded: MutableSet<String>
+    private var tts: TextToSpeech? = null
 
     companion object {
         const val EXTRA_MODE = "mode"
@@ -94,8 +97,15 @@ class FlashcardActivity : AppCompatActivity() {
         val cardView = findViewById<com.google.android.material.card.MaterialCardView>(R.id.cardView)
         val counterText = findViewById<TextView>(R.id.counterText)
         val homeButton = findViewById<Button>(R.id.homeButton)
+        val ttsButton = findViewById<Button>(R.id.ttsButton)
         val bookmarkButton = findViewById<Button>(R.id.bookmarkButton)
         val excludeButton = findViewById<Button>(R.id.excludeButton)
+
+        tts = TextToSpeech(this) { status ->
+            if (status == TextToSpeech.SUCCESS) {
+                tts?.language = Locale.US
+            }
+        }
 
         fun updateBookmarkButton() {
             val isBookmarked = bookmarked.contains(cards[currentIndex].ko)
@@ -164,6 +174,10 @@ class FlashcardActivity : AppCompatActivity() {
             }
         }
 
+        ttsButton.setOnClickListener {
+            tts?.speak(cards[currentIndex].en, TextToSpeech.QUEUE_FLUSH, null, null)
+        }
+
         homeButton.setOnClickListener { finish() }
 
         bookmarkButton.setOnClickListener {
@@ -204,6 +218,12 @@ class FlashcardActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         saveProgress()
+    }
+
+    override fun onDestroy() {
+        tts?.stop()
+        tts?.shutdown()
+        super.onDestroy()
     }
 
     private fun saveProgress() {
