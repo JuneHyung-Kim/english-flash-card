@@ -37,6 +37,30 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun showTagFilterDialog() {
+        val prefs = getSharedPreferences("flashcard_prefs", MODE_PRIVATE)
+        val current = (prefs.getStringSet(FlashcardActivity.KEY_EXCLUDED_TAGS, emptySet()) ?: emptySet()).toMutableSet()
+        val array = JSONArray(resources.openRawResource(R.raw.flashcards).bufferedReader().readText())
+        val tags = (0 until array.length())
+            .map { array.getJSONObject(it) }
+            .mapNotNull { if (it.has("tag")) it.getString("tag") else null }
+            .distinct()
+            .sorted()
+        if (tags.isEmpty()) return
+        val checked = tags.map { it in current }.toBooleanArray()
+        AlertDialog.Builder(this)
+            .setTitle("학습에서 제외할 태그")
+            .setMultiChoiceItems(tags.toTypedArray(), checked) { _, which, isChecked ->
+                if (isChecked) current.add(tags[which]) else current.remove(tags[which])
+            }
+            .setPositiveButton("저장") { _, _ ->
+                prefs.edit().putStringSet(FlashcardActivity.KEY_EXCLUDED_TAGS, current).apply()
+                onResume()
+            }
+            .setNegativeButton("취소", null)
+            .show()
+    }
+
     private fun showSectionPicker() {
         val baseCount = JSONArray(resources.openRawResource(R.raw.flashcards).bufferedReader().readText()).length()
         val userCards = UserCardManager.load(this)
@@ -78,6 +102,12 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.userCardsButton).apply {
             visibility = if (userCards.isNotEmpty()) View.VISIBLE else View.GONE
             text = "내가 추가한 카드 (${userCards.size}장)"
+        }
+
+        val excludedTags = prefs.getStringSet(FlashcardActivity.KEY_EXCLUDED_TAGS, emptySet()) ?: emptySet()
+        findViewById<Button>(R.id.tagFilterButton).apply {
+            text = if (excludedTags.isEmpty()) "🏷 태그 필터" else "🏷 태그 필터 (${excludedTags.size}개 제외 중)"
+            setOnClickListener { showTagFilterDialog() }
         }
 
         val excludedCount = (prefs.getStringSet(FlashcardActivity.KEY_EXCLUDED, emptySet()) ?: emptySet()).size

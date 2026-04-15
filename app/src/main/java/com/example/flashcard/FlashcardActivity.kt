@@ -23,6 +23,7 @@ class FlashcardActivity : AppCompatActivity() {
     private lateinit var gestureDetector: GestureDetector
     private lateinit var bookmarked: MutableSet<String>
     private lateinit var excluded: MutableSet<String>
+    private lateinit var excludedTags: Set<String>
     private var tts: TextToSpeech? = null
 
     companion object {
@@ -34,6 +35,7 @@ class FlashcardActivity : AppCompatActivity() {
         private const val PREFS = "flashcard_prefs"
         private const val KEY_BOOKMARKED = "bookmarked"
         const val KEY_EXCLUDED = "excluded"
+        const val KEY_EXCLUDED_TAGS = "excluded_tags"
         const val SECTION_SIZE = 97
     }
 
@@ -56,6 +58,7 @@ class FlashcardActivity : AppCompatActivity() {
         val prefs = getSharedPreferences(PREFS, MODE_PRIVATE)
         bookmarked = (prefs.getStringSet(KEY_BOOKMARKED, emptySet()) ?: emptySet()).toMutableSet()
         excluded = (prefs.getStringSet(KEY_EXCLUDED, emptySet()) ?: emptySet()).toMutableSet()
+        excludedTags = prefs.getStringSet(KEY_EXCLUDED_TAGS, emptySet()) ?: emptySet()
 
         mode = intent.getStringExtra(EXTRA_MODE)
         sectionNumber = intent.getIntExtra(EXTRA_SECTION, 0)
@@ -251,6 +254,8 @@ class FlashcardActivity : AppCompatActivity() {
         val baseCards = loadBaseCards()
         val userCards = UserCardManager.load(this)
 
+        fun keep(card: Flashcard) = !excluded.contains(card.ko) && card.tag !in excludedTags
+
         when (mode) {
             MODE_SECTION -> {
                 val sorted = baseCards.sortedBy { it.tag ?: "" }
@@ -258,17 +263,17 @@ class FlashcardActivity : AppCompatActivity() {
                 val lastSection = totalSections - 1
                 val sectionBase = sorted.filterIndexed { i, _ -> i % totalSections == sectionNumber }
                 val pool = if (sectionNumber == lastSection) sectionBase + userCards else sectionBase
-                cards.addAll(pool.filter { !excluded.contains(it.ko) })
+                cards.addAll(pool.filter(::keep))
             }
             MODE_USER -> {
-                cards.addAll(userCards.filter { !excluded.contains(it.ko) })
+                cards.addAll(userCards.filter(::keep))
             }
             MODE_BOOKMARKED -> {
                 val pool = baseCards + userCards
-                cards.addAll(pool.filter { bookmarked.contains(it.ko) && !excluded.contains(it.ko) })
+                cards.addAll(pool.filter { bookmarked.contains(it.ko) && keep(it) })
             }
             else -> {
-                cards.addAll((baseCards + userCards).filter { !excluded.contains(it.ko) })
+                cards.addAll((baseCards + userCards).filter(::keep))
             }
         }
     }
