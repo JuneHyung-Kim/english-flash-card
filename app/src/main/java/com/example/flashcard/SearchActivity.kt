@@ -1,6 +1,7 @@
 package com.example.flashcard
 
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
 import org.json.JSONArray
+import java.util.Locale
 
 class SearchActivity : AppCompatActivity() {
 
@@ -19,10 +21,17 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var adapter: SearchResultAdapter
     private lateinit var resultCountText: TextView
     private lateinit var emptyText: TextView
+    private var tts: TextToSpeech? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
+
+        tts = TextToSpeech(this) { status ->
+            if (status == TextToSpeech.SUCCESS) {
+                tts?.language = Locale.US
+            }
+        }
 
         findViewById<com.google.android.material.button.MaterialButton>(R.id.backButton)
             .setOnClickListener { finish() }
@@ -94,6 +103,12 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
+    override fun onDestroy() {
+        tts?.stop()
+        tts?.shutdown()
+        super.onDestroy()
+    }
+
     inner class SearchResultAdapter(private var items: List<Flashcard>) :
         RecyclerView.Adapter<SearchResultAdapter.ViewHolder>() {
 
@@ -101,6 +116,7 @@ class SearchActivity : AppCompatActivity() {
             val tagChip: TextView = view.findViewById(R.id.tagChip)
             val koText: TextView = view.findViewById(R.id.koText)
             val enText: TextView = view.findViewById(R.id.enText)
+            val ttsButton: com.google.android.material.button.MaterialButton = view.findViewById(R.id.ttsButton)
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -118,6 +134,9 @@ class SearchActivity : AppCompatActivity() {
                 holder.tagChip.visibility = View.VISIBLE
             } else {
                 holder.tagChip.visibility = View.GONE
+            }
+            holder.ttsButton.setOnClickListener {
+                tts?.speak(card.en, TextToSpeech.QUEUE_FLUSH, null, null)
             }
         }
 
