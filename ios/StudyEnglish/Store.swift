@@ -15,6 +15,7 @@ enum Destination: Hashable {
     case study(StudyMode)
     case search
     case addCard
+    case quiz
 }
 
 /// 앱 전역 상태 + 영속성. 안드로이드의 SharedPreferences("flashcard_prefs") + UserCardManager 역할.
@@ -26,6 +27,8 @@ final class Store: ObservableObject {
     @Published var bookmarked: Set<String> = []
     @Published var excluded: Set<String> = []
     @Published var excludedTags: Set<String> = []
+    /// 퀴즈로 시험볼 카드. 북마크(다시 보기)와 역할이 다르다.
+    @Published var quizBank: Set<String> = []
 
     let baseCards: [Flashcard]
     let collectionCards: [Flashcard]  // 메인 덱과 분리된 별도 섹션 카드
@@ -37,6 +40,8 @@ final class Store: ObservableObject {
         static let bookmarked = "bookmarked"
         static let excluded = "excluded"
         static let excludedTags = "excluded_tags"
+        static let quizBank = "quiz_bank"
+        static let quizSeeded = "quiz_seeded"
     }
 
     init() {
@@ -47,6 +52,8 @@ final class Store: ObservableObject {
         excluded = Set(d.stringArray(forKey: K.excluded) ?? [])
         excludedTags = Set(d.stringArray(forKey: K.excludedTags) ?? [])
         userCards = Store.decodeCards(d.data(forKey: K.userCards))
+        quizBank = Set(d.stringArray(forKey: K.quizBank) ?? [])
+        seedQuizBankIfNeeded()
     }
 
     // MARK: - 카드 수 / 섹션
@@ -90,6 +97,55 @@ final class Store: ObservableObject {
         excluded.removeAll()
         d.removeObject(forKey: K.excluded)
     }
+
+    // MARK: - 퀴즈 뱅크
+
+    /// 뱅크에 담긴 카드. ko가 중복인 카드가 몇 장 있어 키 기준으로 한 장만 남긴다.
+    var quizCards: [Flashcard] {
+        var seen = Set<String>()
+        return (baseCards + collectionCards + userCards).filter {
+            quizBank.contains($0.ko) && seen.insert($0.ko).inserted
+        }
+    }
+
+    func toggleQuizBank(_ key: String) {
+        if quizBank.contains(key) { quizBank.remove(key) } else { quizBank.insert(key) }
+        saveQuizBank()
+    }
+
+    func removeFromQuizBank(_ keys: [String]) {
+        quizBank.subtract(keys)
+        saveQuizBank()
+    }
+
+    private func saveQuizBank() {
+        d.set(Array(quizBank), forKey: K.quizBank)
+    }
+
+    /// 첫 실행 때만 시드 카드를 넣는다. 사용자가 지운 카드가 재실행 때 되살아나면 안 되므로 플래그로 1회 제한.
+    private func seedQuizBankIfNeeded() {
+        guard !d.bool(forKey: K.quizSeeded) else { return }
+        d.set(true, forKey: K.quizSeeded)
+        let available = Set(baseCards.map { $0.ko })
+        let seeds = Store.seedKeys.filter { available.contains($0) }
+        guard !seeds.isEmpty else { return }
+        quizBank.formUnion(seeds)
+        saveQuizBank()
+    }
+
+    /// 시드 10장: 3~5단어의 자주 쓰는 표현. 첫 타이핑 경험이 부담스럽지 않도록 짧은 것으로 골랐다.
+    private static let seedKeys = [
+        "무슨 생각하고 있어?",
+        "요즘 뭐 하고 지내?",
+        "무슨 일이야?",
+        "무슨 뜻이야?",
+        "잠깐 얘기할 시간 있어?",
+        "지금 바빠?",
+        "그 정도면 괜찮지?",
+        "내가 한 말 취소할게",
+        "이제 가볼게",
+        "그건 말이 되네",
+    ]
 
     func addUserCard(ko: String, en: String) {
         userCards.append(Flashcard(ko: ko, en: en))

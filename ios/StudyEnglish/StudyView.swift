@@ -106,7 +106,7 @@ struct StudyView: View {
     }
 
     private var controls: some View {
-        HStack(spacing: 28) {
+        HStack(spacing: 24) {
             Button { session.prev() } label: { Image(systemName: "chevron.left") }
 
             Button { session.toggleBookmark() } label: {
@@ -116,6 +116,10 @@ struct StudyView: View {
             Button { session.toggleExclude() } label: {
                 Image(systemName: session.isExcluded() ? "eye.slash.fill" : "eye.slash")
                     .foregroundStyle(session.isExcluded() ? .red : .secondary)
+            }
+            Button { session.toggleQuizBank() } label: {
+                Image(systemName: session.isInQuizBank() ? "square.and.pencil.circle.fill" : "square.and.pencil.circle")
+                    .foregroundStyle(session.isInQuizBank() ? Color.accentColor : .secondary)
             }
 
             Button { session.next() } label: { Image(systemName: "chevron.right") }

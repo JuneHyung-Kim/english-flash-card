@@ -107,8 +107,12 @@ final class StudySession: ObservableObject {
     func toggleExclude() {
         if let c = current { store.toggleExclude(c.ko); objectWillChange.send() }
     }
+    func toggleQuizBank() {
+        if let c = current { store.toggleQuizBank(c.ko); objectWillChange.send() }
+    }
     func isBookmarked() -> Bool { current.map { store.bookmarked.contains($0.ko) } ?? false }
     func isExcluded() -> Bool { current.map { store.excluded.contains($0.ko) } ?? false }
+    func isInQuizBank() -> Bool { current.map { store.quizBank.contains($0.ko) } ?? false }
 
     func saveProgress() {
         guard !cards.isEmpty else { return }

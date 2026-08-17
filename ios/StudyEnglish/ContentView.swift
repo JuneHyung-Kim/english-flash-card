@@ -36,6 +36,7 @@ struct ContentView: View {
                             path.append(Destination.study(.user))
                         }
                     }
+                    menuButton("✎ 퀴즈 (\(store.quizBank.count)장)") { path.append(Destination.quiz) }
                     menuButton("🔍 검색") { path.append(Destination.search) }
                     menuButton("➕ 카드 추가") { path.append(Destination.addCard) }
 
@@ -52,9 +53,10 @@ struct ContentView: View {
             }
             .navigationDestination(for: Destination.self) { dest in
                 switch dest {
-                case .study(let mode): StudyView(mode: mode, store: store)
+                case .study(let mode): StudyView(mode: mode, store: store).environmentObject(store)
                 case .search: SearchView().environmentObject(store)
                 case .addCard: AddCardView().environmentObject(store)
+                case .quiz: QuizView(store: store).environmentObject(store)
                 }
             }
             .sheet(isPresented: $showSectionPicker) {
