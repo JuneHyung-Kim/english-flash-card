@@ -1866,12 +1866,6 @@
     "note": "지각 사유로 교통 체증을 댈 때 가장 흔하게 쓰이는 문장입니다."
   },
   {
-    "ko": "길을 잃었어",
-    "en": "I'm lost",
-    "tag": "여행/해외생활",
-    "note": "해외여행이나 초행길에서 방향을 잃었을 때 상황을 알리는 말입니다."
-  },
-  {
     "ko": "여기서 얼마나 멀어?",
     "en": "How far is it from here?",
     "tag": "여행/해외생활",
@@ -3390,12 +3384,6 @@
     "note": "제안이 너무 터무니없어서 고려할(question) 가치조차 없음을 단호히 자를 때 씁니다."
   },
   {
-    "ko": "저 길눈이 정말 어두워요 (방향 감각이 없어요)",
-    "en": "I'm terrible with directions",
-    "tag": "상황/상태",
-    "note": "길치임을 고백하며 누군가에게 길 안내를 부탁하거나 의지해야 할 때 씁니다."
-  },
-  {
     "ko": "실례지만, 저희 사진 좀 찍어주실 수 있나요?",
     "en": "Excuse me, would you mind taking a picture of us?",
     "tag": "여행/해외생활",
@@ -3580,12 +3568,6 @@
     "en": "No news is good news",
     "tag": "감정/리액션",
     "note": "연락이나 보고가 없는 것은 문제가 터지지 않았다는 뜻이니 긍정적으로 보자는 관용구입니다."
-  },
-  {
-    "ko": "그건 좀 무리수네요",
-    "en": "That's a bit of a stretch",
-    "tag": "감정/리액션",
-    "note": "상대의 추측이나 아이디어가 현실성과 동떨어져 지나치게 나갔다고 반박할 때 씁니다."
   },
   {
     "ko": "귀찮게 해서 죄송한데요",
@@ -5800,5 +5782,611 @@
     "en": "Something is going on over there.",
     "tag": "상황/상태",
     "note": "멀리서 소란이나 상황 변화가 보일 때 자연스럽게 말할 수 있습니다."
+  },
+  {
+    "ko": "캐나다에 가본 적 있어요?",
+    "en": "Have you ever been to Canada?",
+    "tag": "여행/해외생활",
+    "note": "'Have you ever + 과거분사?'로 상대의 경험 유무를 물을 때 쓰는 표현입니다."
+  },
+  {
+    "ko": "한국 음식을 먹어본 적 있어요?",
+    "en": "Have you ever tried Korean food?",
+    "tag": "일상/소셜",
+    "note": "음식이나 무언가를 시도해본 경험이 있는지 물을 때 'tried'를 씁니다."
+  },
+  {
+    "ko": "해외에서 일해본 적 있어요?",
+    "en": "Have you ever worked abroad?",
+    "tag": "비즈니스/업무",
+    "note": "해외 근무 경험이 있는지 물어볼 때 자연스러운 표현입니다."
+  },
+  {
+    "ko": "일 다 끝냈어요?",
+    "en": "Have you finished your work yet?",
+    "tag": "비즈니스/업무",
+    "note": "'yet'을 붙여 어떤 일이 벌써 끝났는지 확인할 때 씁니다."
+  },
+  {
+    "ko": "밥 먹었어요?",
+    "en": "Have you eaten yet?",
+    "tag": "일상/소셜",
+    "note": "식사를 했는지 가볍게 묻는 일상 표현입니다."
+  },
+  {
+    "ko": "결정했어요?",
+    "en": "Have you decided yet?",
+    "tag": "상황/상태",
+    "note": "상대가 아직 고민 중인지, 결정을 내렸는지 물을 때 씁니다."
+  },
+  {
+    "ko": "벌써 호텔을 예약했어요?",
+    "en": "Have you already booked the hotel?",
+    "tag": "여행/해외생활",
+    "note": "예상보다 빨리 무언가를 했는지 확인할 때 'already'를 씁니다."
+  },
+  {
+    "ko": "벌써 이 영화를 봤어요?",
+    "en": "Have you already seen this movie?",
+    "tag": "일상/소셜",
+    "note": "상대가 이미 그 영화를 봤는지 물어볼 때 자연스럽습니다."
+  },
+  {
+    "ko": "거기에 몇 번 가봤어요?",
+    "en": "How many times have you been there?",
+    "tag": "여행/해외생활",
+    "note": "경험의 횟수를 물을 때 'How many times have you + 과거분사?'를 씁니다."
+  },
+  {
+    "ko": "이 영화를 몇 번 봤어요?",
+    "en": "How many times have you watched this movie?",
+    "tag": "일상/소셜",
+    "note": "같은 것을 몇 번 반복했는지 물어보는 표현입니다."
+  },
+  {
+    "ko": "오늘 지금까지 뭐 했어요?",
+    "en": "What have you done today?",
+    "tag": "일상/소셜",
+    "note": "오늘 지금까지 한 일을 현재완료로 물을 때 씁니다."
+  },
+  {
+    "ko": "지금까지 무엇을 배웠어요?",
+    "en": "What have you learned so far?",
+    "tag": "상황/상태",
+    "note": "'so far'는 지금까지의 진행 상황을 물을 때 함께 자주 쓰입니다."
+  },
+  {
+    "ko": "방금 점심을 다 먹었어요.",
+    "en": "I've just finished lunch.",
+    "tag": "일상/소셜",
+    "note": "'just'를 붙이면 방금 막 끝낸 일을 나타냅니다."
+  },
+  {
+    "ko": "방금 호텔에 도착했어요.",
+    "en": "I've just arrived at the hotel.",
+    "tag": "여행/해외생활",
+    "note": "막 도착했다는 것을 알릴 때 자연스러운 표현입니다."
+  },
+  {
+    "ko": "방금 파일을 보냈어요.",
+    "en": "I've just sent you the file.",
+    "tag": "비즈니스/업무",
+    "note": "방금 막 무언가를 보냈다고 알릴 때 업무에서 자주 씁니다."
+  },
+  {
+    "ko": "이미 자리를 예약했어요.",
+    "en": "I've already booked a table.",
+    "tag": "일상/소셜",
+    "note": "이미 끝낸 일을 강조할 때 'already'를 씁니다."
+  },
+  {
+    "ko": "이미 체크인했어요.",
+    "en": "I've already checked in.",
+    "tag": "여행/해외생활",
+    "note": "호텔이나 공항에서 이미 체크인을 마쳤다고 말할 때 씁니다."
+  },
+  {
+    "ko": "이미 그분에게 말했어요.",
+    "en": "I've already told her.",
+    "tag": "비즈니스/업무",
+    "note": "전달을 이미 끝냈다고 알릴 때 자연스럽습니다."
+  },
+  {
+    "ko": "아직 끝내지 못했어요.",
+    "en": "I haven't finished it yet.",
+    "tag": "비즈니스/업무",
+    "note": "아직 완료하지 못했다고 말할 때 'not ~ yet'을 씁니다."
+  },
+  {
+    "ko": "아직 결정하지 않았어요.",
+    "en": "I haven't decided yet.",
+    "tag": "상황/상태",
+    "note": "아직 결정을 내리지 못했다고 할 때 자연스러운 표현입니다."
+  },
+  {
+    "ko": "아직 이메일을 받지 못했어요.",
+    "en": "I haven't received the email yet.",
+    "tag": "비즈니스/업무",
+    "note": "기다리는 이메일이 아직 오지 않았다고 말할 때 씁니다."
+  },
+  {
+    "ko": "방 열쇠를 잃어버렸어요.",
+    "en": "I've lost my room key.",
+    "tag": "여행/해외생활",
+    "note": "잃어버려서 지금도 없는 상태를 나타내는 현재완료 표현입니다."
+  },
+  {
+    "ko": "지갑을 잃어버렸어요.",
+    "en": "I've lost my wallet.",
+    "tag": "상황/상태",
+    "note": "지갑을 잃어버려 지금 없는 상황을 말할 때 씁니다."
+  },
+  {
+    "ko": "그분 이름을 잊어버렸어요.",
+    "en": "I've forgotten her name.",
+    "tag": "상황/상태",
+    "note": "지금 기억이 안 난다는 결과를 나타냅니다."
+  },
+  {
+    "ko": "비밀번호를 잊어버렸어요.",
+    "en": "I've forgotten my password.",
+    "tag": "상황/상태",
+    "note": "비밀번호가 기억나지 않는 상태를 말할 때 씁니다."
+  },
+  {
+    "ko": "휴대전화 화면을 깨뜨렸어요.",
+    "en": "I've broken my phone screen.",
+    "tag": "상황/상태",
+    "note": "깨뜨려서 지금 고장 난 상태임을 나타냅니다."
+  },
+  {
+    "ko": "제가 이 의자를 망가뜨린 것 같아요.",
+    "en": "I think I've broken this chair.",
+    "tag": "상황/상태",
+    "note": "'I think'을 붙여 조심스럽게 고장 낸 것 같다고 말하는 표현입니다."
+  },
+  {
+    "ko": "가방을 방에 두고 왔어요.",
+    "en": "I've left my bag in the room.",
+    "tag": "여행/해외생활",
+    "note": "어딘가에 물건을 두고 와서 지금 없는 상태를 나타냅니다."
+  },
+  {
+    "ko": "카드를 호텔에 두고 왔어요.",
+    "en": "I've left my card at the hotel.",
+    "tag": "여행/해외생활",
+    "note": "카드를 호텔에 두고 왔다고 말할 때 'left'를 씁니다."
+  },
+  {
+    "ko": "생각이 바뀌었어요.",
+    "en": "I've changed my mind.",
+    "tag": "감정/리액션",
+    "note": "마음이 바뀌어 지금은 생각이 달라졌음을 나타내는 표현입니다."
+  },
+  {
+    "ko": "일정을 바꿨어요.",
+    "en": "I've changed my schedule.",
+    "tag": "비즈니스/업무",
+    "note": "일정을 변경해 지금은 달라졌다고 말할 때 씁니다."
+  },
+  {
+    "ko": "뉴욕에 가본 적 있어요.",
+    "en": "I've been to New York.",
+    "tag": "여행/해외생활",
+    "note": "'have been to'는 어떤 장소에 가본 경험을 나타냅니다."
+  },
+  {
+    "ko": "거기에 몇 번 가봤어요.",
+    "en": "I've been there a few times.",
+    "tag": "여행/해외생활",
+    "note": "여러 번 가본 경험을 가볍게 말할 때 씁니다."
+  },
+  {
+    "ko": "이건 전에 한 번도 먹어본 적 없어요.",
+    "en": "I've never tried this before.",
+    "tag": "일상/소셜",
+    "note": "'never'로 한 번도 해본 적 없는 경험을 나타냅니다."
+  },
+  {
+    "ko": "비즈니스 저녁 식사에 가본 적이 없어요.",
+    "en": "I've never been to a business dinner.",
+    "tag": "비즈니스/업무",
+    "note": "그런 경험이 전혀 없다고 말할 때 자연스럽습니다."
+  },
+  {
+    "ko": "이 기계를 사용해본 적이 없어요.",
+    "en": "I've never used this machine.",
+    "tag": "상황/상태",
+    "note": "처음 다루는 기계라 사용 경험이 없다고 말할 때 씁니다."
+  },
+  {
+    "ko": "이 영화를 전에 본 적 있어요.",
+    "en": "I've seen this movie before.",
+    "tag": "일상/소셜",
+    "note": "'before'를 붙여 전에 해본 경험이 있음을 나타냅니다."
+  },
+  {
+    "ko": "그 표현을 전에 들어본 적 있어요.",
+    "en": "I've heard that expression before.",
+    "tag": "상황/상태",
+    "note": "예전에 들어본 적 있는 표현이라고 말할 때 씁니다."
+  },
+  {
+    "ko": "비슷한 프로젝트를 해본 적 있어요.",
+    "en": "I've worked on a similar project before.",
+    "tag": "비즈니스/업무",
+    "note": "비슷한 업무 경험이 있다고 어필할 때 유용한 표현입니다."
+  },
+  {
+    "ko": "캐나다를 방문한 것은 이번이 처음이에요.",
+    "en": "This is the first time I've visited Canada.",
+    "tag": "여행/해외생활",
+    "note": "'This is the first time I've + 과거분사'는 무언가를 처음 해본다고 말할 때 씁니다."
+  },
+  {
+    "ko": "해외에서 일하는 것은 이번이 처음이에요.",
+    "en": "This is the first time I've worked abroad.",
+    "tag": "비즈니스/업무",
+    "note": "해외 근무가 처음이라고 말할 때 자연스럽습니다."
+  },
+  {
+    "ko": "이 음식을 먹어보는 것은 처음이에요.",
+    "en": "This is the first time I've tried this food.",
+    "tag": "일상/소셜",
+    "note": "그 음식을 처음 먹어본다고 말할 때 씁니다."
+  },
+  {
+    "ko": "토론토에 여러 번 방문했어요.",
+    "en": "I've visited Toronto several times.",
+    "tag": "여행/해외생활",
+    "note": "'several times'로 여러 번 반복한 경험을 나타냅니다."
+  },
+  {
+    "ko": "이 프로그램을 여러 번 사용해봤어요.",
+    "en": "I've used this program several times.",
+    "tag": "비즈니스/업무",
+    "note": "여러 번 사용해봐서 익숙하다고 말할 때 씁니다."
+  },
+  {
+    "ko": "나라면 그 제안을 받아들일 거예요.",
+    "en": "If I were you, I'd take the offer.",
+    "tag": "비즈니스/업무",
+    "note": "'If I were you'는 상대에게 조언할 때 쓰는 가정법 표현입니다."
+  },
+  {
+    "ko": "당신이 나라면 어떻게 하겠어요?",
+    "en": "What would you do if you were me?",
+    "tag": "감정/리액션",
+    "note": "상대에게 조언을 구할 때 자연스러운 가정법 질문입니다."
+  },
+  {
+    "ko": "나라면 걱정 안 할 거예요.",
+    "en": "I wouldn't worry about it.",
+    "tag": "감정/리액션",
+    "note": "상대를 안심시킬 때 'I wouldn't ~'로 부드럽게 조언합니다."
+  },
+  {
+    "ko": "시간이 더 있으면 도와줄 텐데요.",
+    "en": "If I had more time, I'd help you.",
+    "tag": "상황/상태",
+    "note": "현재 사실과 반대되는 상황을 가정하는 가정법 표현입니다."
+  },
+  {
+    "ko": "나라면 그거 하겠어요.",
+    "en": "I'd take it if I were you.",
+    "tag": "일상/소셜",
+    "note": "'if I were you'를 문장 뒤에 붙여도 같은 뜻의 조언이 됩니다."
+  },
+  {
+    "ko": "더 일찍 예약했어야 했는데.",
+    "en": "I should have booked earlier.",
+    "tag": "여행/해외생활",
+    "note": "'should have + 과거분사'는 하지 못한 일에 대한 후회를 나타냅니다."
+  },
+  {
+    "ko": "그 말을 하지 말걸 그랬어요.",
+    "en": "I shouldn't have said that.",
+    "tag": "감정/리액션",
+    "note": "'shouldn't have + 과거분사'는 이미 한 일에 대한 후회를 나타냅니다."
+  },
+  {
+    "ko": "나한테 말해줄 수도 있었잖아요.",
+    "en": "You could have told me.",
+    "tag": "감정/리액션",
+    "note": "'could have + 과거분사'로 하지 않은 일을 아쉬워하며 말합니다."
+  },
+  {
+    "ko": "분명 실수였을 거예요.",
+    "en": "It must have been a mistake.",
+    "tag": "상황/상태",
+    "note": "'must have + 과거분사'는 과거에 대한 강한 추측을 나타냅니다."
+  },
+  {
+    "ko": "그분이 기차를 놓쳤을지도 몰라요.",
+    "en": "She might have missed the train.",
+    "tag": "상황/상태",
+    "note": "'might have + 과거분사'는 과거에 대한 불확실한 추측입니다."
+  },
+  {
+    "ko": "점심 먹는 게 어때요?",
+    "en": "How about grabbing lunch?",
+    "tag": "일상/소셜",
+    "note": "'How about + -ing?'는 가볍게 제안할 때 씁니다."
+  },
+  {
+    "ko": "우리 나눠 내는 게 어때요?",
+    "en": "Why don't we split the bill?",
+    "tag": "일상/소셜",
+    "note": "'Why don't we ~?'는 함께 하자고 제안하는 표현입니다."
+  },
+  {
+    "ko": "좀 쉬는 게 어때요?",
+    "en": "Why don't you take a break?",
+    "tag": "감정/리액션",
+    "note": "'Why don't you ~?'는 상대에게 권할 때 씁니다."
+  },
+  {
+    "ko": "대신 내일 만나는 건 어때요?",
+    "en": "What if we meet tomorrow instead?",
+    "tag": "비즈니스/업무",
+    "note": "'What if we ~?'는 대안을 제안할 때 자연스럽습니다."
+  },
+  {
+    "ko": "7시쯤으로 할까요?",
+    "en": "Let's say around 7?",
+    "tag": "일상/소셜",
+    "note": "'Let's say ~'는 시간이나 조건을 가볍게 제안할 때 씁니다."
+  },
+  {
+    "ko": "9시까지 가기로 되어 있어요.",
+    "en": "I'm supposed to be there by 9.",
+    "tag": "비즈니스/업무",
+    "note": "'be supposed to ~'는 하기로 예정·약속된 일을 나타냅니다."
+  },
+  {
+    "ko": "여기 주차하면 안 돼요.",
+    "en": "You're not supposed to park here.",
+    "tag": "여행/해외생활",
+    "note": "'not supposed to ~'는 규칙상 하면 안 되는 일을 나타냅니다."
+  },
+  {
+    "ko": "오늘 비 온다고 했는데.",
+    "en": "It was supposed to rain today.",
+    "tag": "상황/상태",
+    "note": "예보·예상과 관련해 '~하기로 되어 있었다'는 뜻으로 씁니다."
+  },
+  {
+    "ko": "내가 그걸 어떻게 알아요?",
+    "en": "How am I supposed to know?",
+    "tag": "감정/리액션",
+    "note": "'How am I supposed to ~?'는 답답함을 나타내는 관용 표현입니다."
+  },
+  {
+    "ko": "우리 정오에 만나기로 했었어요.",
+    "en": "We were supposed to meet at noon.",
+    "tag": "일상/소셜",
+    "note": "약속이 있었음을 말할 때 'were supposed to'를 씁니다."
+  },
+  {
+    "ko": "예전에 부산에 살았어요.",
+    "en": "I used to live in Busan.",
+    "tag": "여행/해외생활",
+    "note": "'used to ~'는 지금은 아니지만 예전에 하던 일을 나타냅니다."
+  },
+  {
+    "ko": "여기 예전에 카페가 있었어요.",
+    "en": "There used to be a café here.",
+    "tag": "상황/상태",
+    "note": "'There used to be ~'는 예전에 있었던 것을 말할 때 씁니다."
+  },
+  {
+    "ko": "예전엔 매일 운동했어요.",
+    "en": "I used to work out every day.",
+    "tag": "일상/소셜",
+    "note": "과거의 습관을 나타내며 지금은 그렇지 않음을 암시합니다."
+  },
+  {
+    "ko": "예전에 담배 피우지 않았어요?",
+    "en": "Didn't you use to smoke?",
+    "tag": "감정/리액션",
+    "note": "의문문·부정문에서는 'use to'(d 없이)로 씁니다."
+  },
+  {
+    "ko": "아직 추위에 안 익숙해요.",
+    "en": "I'm not used to the cold yet.",
+    "tag": "여행/해외생활",
+    "note": "'be used to + 명사/-ing'는 '~에 익숙하다'로 뜻이 다릅니다."
+  },
+  {
+    "ko": "오늘 밤엔 차라리 집에 있을래요.",
+    "en": "I'd rather stay home tonight.",
+    "tag": "일상/소셜",
+    "note": "'would rather ~'는 차라리 무엇을 하겠다는 선호를 나타냅니다."
+  },
+  {
+    "ko": "택시 타느니 걸을래요.",
+    "en": "I'd rather walk than take a taxi.",
+    "tag": "여행/해외생활",
+    "note": "'would rather A than B'는 B보다 A를 택하겠다는 뜻입니다."
+  },
+  {
+    "ko": "차라리 온라인으로 만날래요?",
+    "en": "Would you rather meet online?",
+    "tag": "비즈니스/업무",
+    "note": "상대의 선호를 물을 때 'Would you rather ~?'를 씁니다."
+  },
+  {
+    "ko": "그 얘긴 안 하는 게 좋겠어요.",
+    "en": "I'd rather not talk about it.",
+    "tag": "감정/리액션",
+    "note": "'I'd rather not ~'은 정중하게 거절할 때 자주 씁니다."
+  },
+  {
+    "ko": "서두르는 게 좋을 거예요.",
+    "en": "You'd better hurry.",
+    "tag": "상황/상태",
+    "note": "'had better ~'는 안 하면 문제가 생긴다는 강한 충고입니다."
+  },
+  {
+    "ko": "늦으면 안 돼요.",
+    "en": "You'd better not be late.",
+    "tag": "비즈니스/업무",
+    "note": "'had better not ~'은 하지 말라는 경고성 충고입니다."
+  },
+  {
+    "ko": "이왕 이렇게 된 거 지금 시작하죠.",
+    "en": "We might as well start now.",
+    "tag": "일상/소셜",
+    "note": "'might as well ~'은 딱히 더 나은 게 없으니 하자는 뜻입니다."
+  },
+  {
+    "ko": "이제 가보는 게 좋겠어요.",
+    "en": "I'd better get going.",
+    "tag": "일상/소셜",
+    "note": "자리를 뜰 때 'I'd better get going'을 자주 씁니다."
+  },
+  {
+    "ko": "결국 택시를 탔어요.",
+    "en": "We ended up taking a taxi.",
+    "tag": "여행/해외생활",
+    "note": "'end up + -ing'는 예상과 달리 결국 그렇게 됐다는 뜻입니다."
+  },
+  {
+    "ko": "결국 늦게까지 있었어요.",
+    "en": "I ended up staying late.",
+    "tag": "비즈니스/업무",
+    "note": "계획에 없던 일이 결국 벌어졌을 때 씁니다."
+  },
+  {
+    "ko": "결국 잘 풀렸어요.",
+    "en": "It ended up working out.",
+    "tag": "상황/상태",
+    "note": "걱정했던 일이 결국 잘 됐다고 말할 때 씁니다."
+  },
+  {
+    "ko": "결국 괜찮은 식당에 가게 됐어요.",
+    "en": "We ended up at a nice restaurant.",
+    "tag": "일상/소셜",
+    "note": "'end up + 장소'로 결국 어디에 도달했는지도 나타냅니다."
+  },
+  {
+    "ko": "생각보다 비싸지 않네요.",
+    "en": "It's not as expensive as I thought.",
+    "tag": "상황/상태",
+    "note": "'not as ~ as ...'는 '...만큼 ~하지는 않다'는 비교 표현입니다."
+  },
+  {
+    "ko": "이게 저것보다 나아요.",
+    "en": "This one is better than that one.",
+    "tag": "일상/소셜",
+    "note": "'better than'처럼 비교급 + than으로 두 대상을 비교합니다."
+  },
+  {
+    "ko": "빠를수록 좋아요.",
+    "en": "The sooner, the better.",
+    "tag": "비즈니스/업무",
+    "note": "'the 비교급, the 비교급'은 '~할수록 더 …하다'는 관용 표현입니다."
+  },
+  {
+    "ko": "점점 더 추워지고 있어요.",
+    "en": "It's getting colder and colder.",
+    "tag": "상황/상태",
+    "note": "'비교급 and 비교급'은 '점점 더 ~해지다'는 뜻입니다."
+  },
+  {
+    "ko": "그게 제가 할 수 있는 최선이에요.",
+    "en": "That's the best I can do.",
+    "tag": "비즈니스/업무",
+    "note": "최상급 'the best'를 써서 더는 못 한다는 뜻을 나타냅니다."
+  },
+  {
+    "ko": "가능한 한 빨리 보내줄 수 있어요?",
+    "en": "Can you send it as soon as possible?",
+    "tag": "비즈니스/업무",
+    "note": "'as soon as possible'은 '가능한 한 빨리'라는 굳어진 표현입니다."
+  },
+  {
+    "ko": "저도 하나 할게요.",
+    "en": "I'll take one as well.",
+    "tag": "일상/소셜",
+    "note": "문장 끝의 'as well'은 'too'처럼 '~도'라는 뜻입니다."
+  },
+  {
+    "ko": "물도 좀 주시겠어요?",
+    "en": "Can I get some water as well?",
+    "tag": "여행/해외생활",
+    "note": "주문할 때 'as well'을 붙여 '~도 추가로'를 나타냅니다."
+  },
+  {
+    "ko": "그는 영어뿐 아니라 프랑스어도 해요.",
+    "en": "He speaks French as well as English.",
+    "tag": "상황/상태",
+    "note": "'A as well as B'는 'B뿐만 아니라 A도'라는 뜻입니다."
+  },
+  {
+    "ko": "그분은 성실할 뿐 아니라 재능도 있어요.",
+    "en": "She's talented as well as hardworking.",
+    "tag": "감정/리액션",
+    "note": "'as well as'로 두 가지 성질을 함께 나타냅니다."
+  },
+  {
+    "ko": "여권도 챙겨 오세요.",
+    "en": "Please bring your passport as well.",
+    "tag": "여행/해외생활",
+    "note": "'as well'을 문장 끝에 붙여 '~도 함께'를 나타냅니다."
+  },
+  {
+    "ko": "메뉴판 좀 볼 수 있을까요?",
+    "en": "Could we see the menu, please?",
+    "tag": "여행/해외생활",
+    "note": "식당에서 메뉴판을 요청할 때 쓰는 정중한 표현입니다."
+  },
+  {
+    "ko": "저도 같은 걸로 할게요.",
+    "en": "I'll have the same.",
+    "tag": "일상/소셜",
+    "note": "앞사람과 같은 메뉴를 주문할 때 간단히 쓰는 표현입니다."
+  },
+  {
+    "ko": "뭐가 맛있어요?",
+    "en": "What would you recommend?",
+    "tag": "일상/소셜",
+    "note": "직원에게 추천 메뉴를 물을 때 자연스러운 표현입니다."
+  },
+  {
+    "ko": "이거 양파 빼고 주실 수 있어요?",
+    "en": "Can I get this without onions?",
+    "tag": "여행/해외생활",
+    "note": "'without + 재료'로 특정 재료를 빼 달라고 요청합니다."
+  },
+  {
+    "ko": "이 요리 매운가요?",
+    "en": "Is this dish spicy?",
+    "tag": "일상/소셜",
+    "note": "주문 전 맛이나 매운 정도를 확인할 때 씁니다."
+  },
+  {
+    "ko": "두 명 자리 부탁해요.",
+    "en": "I'd like a table for two.",
+    "tag": "여행/해외생활",
+    "note": "식당에 들어가 인원수만큼 자리를 요청할 때 씁니다."
+  },
+  {
+    "ko": "오늘 훨씬 나아 보여요.",
+    "en": "You look much better today.",
+    "tag": "감정/리액션",
+    "note": "'much + 비교급'은 '훨씬 더 ~하다'로 차이를 강조합니다."
+  },
+  {
+    "ko": "냅킨 좀 더 주시겠어요?",
+    "en": "Could we get some more napkins?",
+    "tag": "여행/해외생활",
+    "note": "식사 중 필요한 것을 더 요청할 때 'some more'를 씁니다."
+  },
+  {
+    "ko": "채식 메뉴 있나요?",
+    "en": "Do you have a vegetarian option?",
+    "tag": "여행/해외생활",
+    "note": "채식 등 식단 옵션이 있는지 물을 때 씁니다."
   }
 ]
